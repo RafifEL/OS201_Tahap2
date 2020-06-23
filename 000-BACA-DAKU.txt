@@ -1,3 +1,4 @@
+# REV03 Tue Jun 23 14:53:34 WIB 2020
 # REV02 Tue Jun 23 09:28:31 WIB 2020
 # START Mon Jun 22 15:42:22 WIB 2020
 ====================================
@@ -17,7 +18,7 @@ PERHATIKAN TANGGAL REVISI DI ATAS
 6. Yang harus tetap:
 == a. berkas "p00.h" dibagi (share) bersama.
 == b. isi "struct usrinfo" dan "struct myshare" dalam p00.h tidak boleh diubah.
-== c. nama berkas untuk "share memory" harus "SharedMemoryFile.bin".
+== c. nama berkas untuk "ShareMemory" harus "SharedMemoryFile.bin".
 == d. nama berkas masing-masing anggota harus p00.c, p01.c, dst.
 
 7. Yang perlu diubah:
@@ -30,7 +31,16 @@ PERHATIKAN TANGGAL REVISI DI ATAS
 
 10. Setiap kali mengakses "mutex", untuk "usrinfo" dari akunGitHub tersebut, "stamp++"
 
-11. Info Tambahan
+11. CATATAN:
+== a. p00 yang memanggil p01, p02, dst.
+== b. saat init() (atau fungsi penggantinya), p00 menginisialisasi dan meng-OPEN ShareMemory.
+== c. sebelum exit, p00 meng-CLOSE ShareMemory.
+== d. p00 selalu exit paling akhir.
+== e. tanpa ShareMemory, p01, p02, dst. langsung exit.
+== f. kalau ShareMemory CLOSE, p01, p02, dst. langsung exit.
+== g. Setiap saat hanya boleh satu proses yang akses ShareMemory. Berhubung semafor "mutex" berada dalam ShareMemory, dengan sendirinya, tidak berlaku untuk fungsi "sem_wait()" dan "sem_port()".
+
+12. Info Tambahan
 #define AKUNSIZE     30    // Jumlah karakter dalam string "akinGitHub" (minus 1).
 #define CLOSED       127   // state==CLOSED; "ShareMemory" TIDAK boleh diakses.
 #define MAXPROGS     20    // Maximum program (maximum jumlah anggota).
