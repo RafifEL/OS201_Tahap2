@@ -18,28 +18,28 @@ int init(void) {
     ftruncate(fd, ssize);
     mymap=mmap(NULL, ssize, MYPROTECTION, MYVISIBILITY, fd, 0);
     close(fd);
-    //  more INIT STUFFs...
-    //  more INIT STUFFs...
-    //  more INIT STUFFs...
     mymap->state=OPEN;
-    mymap->entry=1;
+    mymap->mutexctr = 0;
+    mymap->entry = 0;
     sem_init(&(mymap->mutex), 1, 1);
+    for(int ii = 0; ii <= MAXPROGS; ii++){
+        strcpy(mymap->progs[ii].akun, "");
+        mymap->progs[ii].stamp = 0;
+    }
     return BOSS;
 }
 
 char tmpStr[256]={};  // a temporary string.
 void myprint(char* str1, char* str2) {
     printf("%s[%s]\n", str1, str2);
-    // blah blah blah
-    // blah blah blah
-    // blah blah blah
+    fflush(NULL);
 }
 
 int getEntry(void) {
     sem_wait(&(mymap->mutex));
-    int entry;
-    // get an entry number
-    entry = mymap->entry;
+    int entry = mymap->entry++;
+    mymap->progs[entry].stamp++;
+    mymap->mutexctr++;
     sem_post(&(mymap->mutex));
     return entry;
 }
@@ -59,22 +59,35 @@ void display(int entry) {
         state = "CLOSED";
         break;
     }
+    printf("%s[progs[%02d] TIME[%02d] MUTEX[%02d] MMAP[%s] ", akunGitHub, entry, mymap->mutexctr, mymap->progs[entry].stamp, state);
+    fflush(NULL);
+
+    for(int ii = 0; ii < mymap->entry; ii++) {
+        printf("[%s]", mymap->progs[ii].akun);
+	    fflush(NULL);
+    }
+    printf("]\n");
+    fflush(NULL);
+    sem_post(&(mymap->mutex));
 
     printf("%s[progs[%d] TIME[] MUTEX[] MMAP[]", akunGitHub, entry);
 }
 
 void putInfo(char* akun, int entry) {
-    // put "akunGitHub" into akun[] array (MMAP) 
-    usrinfo account;
-    strcpy(account.akun, akun);
-    account.stamp = 0;
-    mymap->progs[entry] = account;
+    // put "akunGitHub" into akun[] array (MMAP)
+    sem_wait(&(mymap->mutex)); 
+    mymap->progs[entry].stamp++;
+    strcpy(mymap->progs[entry].akun, akun);
+    mymap->mutexctr++;
+    mymap->progs[entry].stamp++;
+    sem_post(&(mymap->mutex));
 }
 
 void checkOpen(void) {
     // exit if MMAP is closed.
     if(mymap->state == CLOSED){
         printf("CLOSED, BYEBYE =====  ===== =====");
+        exit(0);
     }
 }
 
@@ -90,17 +103,20 @@ int main(void) {
         }  
     }
     sleep (DELAY);
+    int entry = getEntry();
+
+    display(entry);
+    sleep (DELAY);
+    putInfo(akunGitHub, entry);
+
+    for(int i = 0; i < 2; i++) {
+        display(entry);
+        sleep (DELAY);
+    }
     for (int ii = 0; ii < 7; ii++){
         wait(NULL);
     }
-    display(getEntry());
-    putInfo(akunGitHub, getEntry());
-    // putInfo(akunGitHub, getEntry());
-    // display(getEntry());
-    // display(getEntry());
-    // blah... blah... blah...
-    // blah... blah... blah...
-    // blah... blah... blah...
+
     mymap->state=CLOSED;
     myprint(akunGitHub, "BYEBYE =====  ===== =====");
 }
