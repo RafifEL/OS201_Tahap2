@@ -22,6 +22,7 @@ int init(void) {
     //  more INIT STUFFs...
     //  more INIT STUFFs...
     mymap->state=OPEN;
+    mymap->entry=7;
     sem_init(&(mymap->mutex), 1, 1);
     return BOSS;
 }
@@ -35,9 +36,11 @@ void myprint(char* str1, char* str2) {
 }
 
 int getEntry(void) {
+    sem_wait(&(mymap->mutex));
     int entry;
     // get an entry number
     entry = mymap->entry;
+    sem_post(&(mymap->mutex));
     return entry;
 }
 
