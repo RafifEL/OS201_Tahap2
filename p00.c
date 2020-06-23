@@ -87,7 +87,8 @@ int main(void) {
     // blah... blah... blah...
     for (int ii = 0; ii < 7; ii++){
         fork();
-        execlp(progs[ii], progs[ii], NULL);
+        sprintf(tmpStr, "p%02d", ii+1);
+        execlp(progs[ii], tmpStr, (char *)NULL);
     }
     mymap->state=CLOSED;
     myprint(akunGitHub, "BYEBYE =====  ===== =====");
