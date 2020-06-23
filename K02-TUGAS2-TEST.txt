@@ -1,4 +1,5 @@
-# Tue Jun 23 11:39:32 WIB 2020
+# REV01 Tue Jun 23 22:32:19 WIB 2020
+# START Tue Jun 23 11:39:32 WIB 2020
 #
 # Silakan melakukan COPAS (COpy and PASte).
 # Hanya saja, harap COPAS baris demi baris!
@@ -35,6 +36,12 @@ make
 ./p03
 #
 ./p00
+#
+./p01
+#
+./p02
+#
+./p03
 #
 exit
 
