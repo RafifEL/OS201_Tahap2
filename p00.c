@@ -22,6 +22,8 @@ int init(void) {
     //  more INIT STUFFs...
     //  more INIT STUFFs...
     mymap->state=OPEN;
+    sem_init(&(mymap->mutex), 1, 1);
+    mymap->mutexctr=1;
     return BOSS;
 }
 
