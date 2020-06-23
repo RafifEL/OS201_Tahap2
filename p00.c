@@ -81,16 +81,19 @@ int main(void) {
     myprint(akunGitHub, tmpStr);
     int boss=init();
     checkOpen();
-    sleep (DELAY);
-    // blah... blah... blah...
-    // blah... blah... blah...
-    // blah... blah... blah...
     for (int ii = 0; ii < 7; ii++){
         if(!fork()){
             sprintf(tmpStr, "p%02d", ii+1);
             execlp(progs[ii], tmpStr, (char *)NULL);
         }  
     }
+    sleep (DELAY);
+    for (int ii = 0; ii < 7; ii++){
+        wait(NULL);
+    }
+    // blah... blah... blah...
+    // blah... blah... blah...
+    // blah... blah... blah...
     mymap->state=CLOSED;
     myprint(akunGitHub, "BYEBYE =====  ===== =====");
 }
