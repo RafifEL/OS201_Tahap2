@@ -38,6 +38,7 @@ void myprint(char* str1, char* str2) {
 int getEntry(void) {
     int entry;
     // get an entry number
+    entry = mymap->entry;
     return entry;
 }
 
@@ -66,6 +67,7 @@ int main(void) {
     // blah... blah... blah...
     // blah... blah... blah...
     // blah... blah... blah...
+    mymap->state=CLOSED;
     myprint(akunGitHub, "BYEBYE =====  ===== =====");
 }
 
