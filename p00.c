@@ -62,8 +62,10 @@ void display(int entry) {
 }
 
 void putInfo(char* akun, int entry) {
-    // put "akunGitHub" into akun[] array (MMAP)
-    usrinfo account = {.akun = akun,.stamp = 0};
+    // put "akunGitHub" into akun[] array (MMAP) 
+    usrinfo account;
+    strcpy(account.akun, akun);
+    account.stamp = 0;
     mymap->progs[entry] = account;
 }
 
