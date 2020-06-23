@@ -4,11 +4,11 @@
  */
 
 // adjust DELAY and akunGitHub
-#define  DELAY 2
-#define  akunGitHub "akunGH3"
+#define  DELAY 5
+#define  akunGitHub "phazeblaze"
 #include "p00.h"
 
-char*    progs[]={P01, P02, P03};
+char*    progs[]={P01, P02, P03, P04, P05, P06, P07};
 myshare* mymap;
 
 int init(void) {
