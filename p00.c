@@ -22,7 +22,7 @@ int init(void) {
     //  more INIT STUFFs...
     //  more INIT STUFFs...
     mymap->state=OPEN;
-    mymap->entry=7;
+    mymap->entry=1;
     sem_init(&(mymap->mutex), 1, 1);
     return BOSS;
 }
