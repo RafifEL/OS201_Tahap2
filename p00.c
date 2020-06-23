@@ -59,18 +59,19 @@ void display(int entry) {
         state = "CLOSED";
         break;
     }
-    printf("%s[progs[%02d] TIME[%02d] MUTEX[%02d] MMAP[%s] ", akunGitHub, entry, mymap->mutexctr, mymap->progs[entry].stamp, state);
-    fflush(NULL);
+    sprintf(tmpStr,"progs[%02d] TIME[%02d] MUTEX[%02d] MMAP[%s] ", entry, mymap->mutexctr, mymap->progs[entry].stamp, state);
+    // fflush(NULL);
 
     for(int ii = 0; ii < mymap->entry; ii++) {
-        printf("[%s]", mymap->progs[ii].akun);
-	    fflush(NULL);
+        char tmpStr2[32]={};
+        sprintf(tmpStr2,"[%s]", mymap->progs[ii].akun);
+        strcat(tmpStr, tmpStr2);
+	    // fflush(NULL);
     }
-    printf("]\n");
+    // printf("]\n");
+    myprint(akunGitHub, tmpStr);
     fflush(NULL);
     sem_post(&(mymap->mutex));
-
-    printf("%s[progs[%d] TIME[] MUTEX[] MMAP[]", akunGitHub, entry);
 }
 
 void putInfo(char* akun, int entry) {
