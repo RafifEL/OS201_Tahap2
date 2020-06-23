@@ -39,7 +39,7 @@ int getEntry(void) {
     int entry = mymap->entry++;
     mymap->mutexctr++;
     mymap->progs[entry].stamp++;
-    sem_post(&(mymap->mutex));
+    sem_post(&mymap->mutex);
     return entry;
 }
 
