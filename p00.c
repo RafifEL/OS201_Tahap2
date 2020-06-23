@@ -21,6 +21,7 @@ int init(void) {
     //  more INIT STUFFs...
     //  more INIT STUFFs...
     //  more INIT STUFFs...
+    mymap->state=OPEN;
     return BOSS;
 }
 
@@ -49,6 +50,9 @@ void putInfo(char* akun, int entry) {
 
 void checkOpen(void) {
     // exit if MMAP is closed.
+    if(mymap->state == CLOSED){
+        printf("CLOSED, BYEBYE =====  ===== =====");
+    }
 }
 
 int main(void) {
