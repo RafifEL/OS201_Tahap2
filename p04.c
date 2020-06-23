@@ -14,6 +14,11 @@ myshare* mymap;
 int init(void) {
     sleep(DELAY);
     // blah blah blah
+    if (access( SHAREMEM, F_OK ) == -1)
+    {
+        printf("No \"SharedMemoryFile.bin\" file.\n");
+        exit(1);
+    }
     return NOTBOSS;
 }
 
@@ -42,11 +47,6 @@ void putInfo(char* akun, int entry) {
 
 void checkOpen(void) {
     // exit if MMAP is closed.
-    if (access( SHAREMEM, F_OK ) == -1)
-    {
-        printf("No \"SharedMemoryFile.bin\" file.\n");
-        exit(1);
-    }
 }
 
 int main(void) {
