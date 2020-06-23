@@ -18,6 +18,10 @@ int init(void) {
         printf("No \"SharedMemoryFile.bin\" file.\n");
         exit(1);
     }
+    int ssize=sizeof(myshare);
+    int fd   =open(SHAREMEM, MYFLAGS, CHMOD);
+    mymap=mmap(NULL, ssize, MYPROTECTION, MYVISIBILITY, fd, 0);
+    close(fd);
     // blah blah blah
     return NOTBOSS;
 }
