@@ -14,11 +14,7 @@ myshare* mymap;
 int init(void) {
     sleep(DELAY);
     // blah blah blah
-    if (access( SHAREMEM, F_OK ) == -1)
-    {
-        printf("No \"SharedMemoryFile.bin\" file.\n");
-        exit(1);
-    }
+    checkOpen();
     int ssize=sizeof(myshare);
     int fd   =open(SHAREMEM, MYFLAGS, CHMOD);
     mymap=mmap(NULL, ssize, MYPROTECTION, MYVISIBILITY, fd, 0);

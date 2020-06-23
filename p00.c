@@ -59,6 +59,8 @@ void display(int entry) {
         state = "CLOSED";
         break;
     }
+
+    printf("%s[progs[%d] TIME[] MUTEX[] MMAP[]", akunGitHub, entry);
 }
 
 void putInfo(char* akun, int entry) {
@@ -91,6 +93,11 @@ int main(void) {
     for (int ii = 0; ii < 7; ii++){
         wait(NULL);
     }
+    display(getEntry());
+    putInfo(akunGitHub, getEntry());
+    // putInfo(akunGitHub, getEntry());
+    // display(getEntry());
+    // display(getEntry());
     // blah... blah... blah...
     // blah... blah... blah...
     // blah... blah... blah...
