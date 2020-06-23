@@ -98,7 +98,9 @@ int main(void) {
     sleep (DELAY);    
     putInfo(akunGitHub, entry);
     display(entry);
+    sleep(DELAY);
     display(entry);
+    sleep(DELAY);
     wait(NULL);
     myprint(akunGitHub, "BYEBYE =====  ===== =====");
 }
