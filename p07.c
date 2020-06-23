@@ -53,17 +53,29 @@ void display(int entry) {
     mymap->progs[entry].stamp++;
     int mutcounter = mymap->mutexctr;
     int stamp = mymap->progs[entry].stamp;
-    char* state = OPEN ? "OPEN" : "CLOSE" ;
-
-
-    printf("%s[progs[%2.2d] TIME[%2.2d] MUTEX[%2.2d] MMAP[%s]]", akunGitHub, entry, mutcounter, stamp, state);
-    for(int i = 0; i < mymap->entry; i++) 
+    char* state;
+    switch (mymap->state)
     {
-        printf("[%s]", mymap->progs[i].akun);
-    } 
-    printf("]\n");
+    case OPEN:
+        state = "OPEN";
+        break;
+    default:
+        state = "CLOSED";
+        break;
+    }
+    sprintf(tmpStr,"progs[%02d] TIME[%02d] MUTEX[%02d] MMAP[%s] ", entry, mymap->mutexctr, mymap->progs[entry].stamp, state);
+    // fflush(NULL);
+
+    for(int ii = 0; ii < mymap->entry; ii++) {
+        char tmpStr2[32]={};
+        sprintf(tmpStr2,"[%s]", mymap->progs[ii].akun);
+        strcat(tmpStr, tmpStr2);
+        // fflush(NULL);
+    }
+    // printf("]\n");
+    myprint(akunGitHub, tmpStr);
     fflush(NULL);
-    sem_post(&mymap->mutex);
+    sem_post(&(mymap->mutex));
 }
 
 void putInfo(char* akun, int entry) {
