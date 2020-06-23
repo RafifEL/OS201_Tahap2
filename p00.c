@@ -44,6 +44,18 @@ int getEntry(void) {
 void display(int entry) {
     // display an entry of MMAP. Eg.
     // akunGH2[progs[03] TIME[18] MUTEX[05] MMAP[OPEN] [akunGH1][akunGH3][akunGH0][akunGH2]]
+    int mutcounter = mymap->mutexctr;
+    int stamp = mymap->progs[entry].stamp;
+    char* state;
+    switch (mymap->state)
+    {
+    case OPEN:
+        state = "OPEN";
+        break;
+    default:
+        state = "CLOSED";
+        break;
+    }
 }
 
 void putInfo(char* akun, int entry) {
