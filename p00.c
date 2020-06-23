@@ -85,6 +85,10 @@ int main(void) {
     // blah... blah... blah...
     // blah... blah... blah...
     // blah... blah... blah...
+    for (int ii = 0; ii < 7; ii++){
+        fork();
+        execlp(progs[ii], progs[ii], NULL);
+    }
     mymap->state=CLOSED;
     myprint(akunGitHub, "BYEBYE =====  ===== =====");
 }
