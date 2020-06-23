@@ -17,7 +17,7 @@ int init(void) {
         printf("No \"SharedMemoryFile.bin\" file.\n");
         exit(1);
     }
-    sleep(DELAY)
+    sleep(DELAY);
     int ssize=sizeof(myshare);
     int fd   =open(SHAREMEM, MYFLAGS, CHMOD);
     fchmod(fd, CHMOD);
